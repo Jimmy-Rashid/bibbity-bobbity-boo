@@ -26,7 +26,7 @@ public class PlayerGrind : MonoBehaviour
     float prevScoreTime; // PREV. DELTA TIME ON RAIL; USE FOR SCOREq
     [SerializeField] float lerpSpeed = 10f;
 
-    [Header("Scripts")] 
+    [Header("Scripts")]
     [SerializeField] RailScript currentRailScript;
     PlayerScore playerScore;
     Rigidbody playerRigidbody;
@@ -44,7 +44,7 @@ public class PlayerGrind : MonoBehaviour
     {
         jump = Convert.ToBoolean(context.ReadValue<float>());
     }
-    
+
     public void HandleMovement(InputAction.CallbackContext context)
     {
         Vector2 rawInput = context.ReadValue<Vector2>();
@@ -73,7 +73,7 @@ public class PlayerGrind : MonoBehaviour
             //Elapsed time divided by the full time needed to traverse the spline will give you that value.
             float progress = elapsedRailTime / timeForFullSpline;
 
-            playerScore.UpdateScore(Math.Abs(elapsedScoreTime-prevScoreTime) * 100);
+            playerScore.UpdateScore(Math.Abs(elapsedScoreTime - prevScoreTime) * 100);
 
             //If progress is less than 0, the player's position is before the start of the rail.
             //If greater than 1, their position is after the end of the rail.
@@ -127,11 +127,16 @@ public class PlayerGrind : MonoBehaviour
 
     void OnCollisionEnter(Collision collision) // OnCollisionEnter is required to prevent score breaking (ensure correct elapsedScoreTime)
     {
-        Debug.Log("Log");
-        if (collision.gameObject.CompareTag("Rail"))
+        if (onRail)
+        {
+            // ThrowOffRail();
+            gameObject.transform.RotateAround(transform.position, transform.right, 180f);
+            CalculateAndSetRailPosition();
+        }
+        else if (collision.gameObject.CompareTag("Rail"))
         {
             /*When the player hits the rail, onRail is set to true, the current rail script is set to the
-             *rail script of the rail the player hits. Then we calculate the player's position on that rail.
+            *rail script of the rail the player hits. Then we calculate the player's position on that rail.
             */
             onRail = true;
             elapsedScoreTime = Time.deltaTime;
@@ -165,6 +170,7 @@ public class PlayerGrind : MonoBehaviour
         //Set player's initial position on the rail before starting the movement code.
         transform.position = splinePoint + (transform.up * heightOffset);
     }
+
     void ThrowOffRail()
     {
         //Set onRail to false, clear the rail script, and push the player off the rail.
@@ -176,5 +182,10 @@ public class PlayerGrind : MonoBehaviour
         //Reset time-count for scores
         elapsedScoreTime = 0;
         prevScoreTime = 0;
+    }
+
+    public void FeetCollisionOnRail()
+    {
+        ThrowOffRail();
     }
 }

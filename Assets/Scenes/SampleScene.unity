@@ -713,7 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freeCamera: {fileID: 576287072}
-  movementSpeed: 15
+  movementSpeed: 30
   jumpHeight: 10
 --- !u!1 &832575517
 GameObject:
@@ -1060,35 +1060,35 @@ MonoBehaviour:
       TangentIn:
         x: -0
         y: -0
-        z: -21.479048
+        z: -19.05936
       TangentOut:
         x: 0
         y: 0
-        z: 26.162432
+        z: 18.113335
       Rotation:
         value:
-          x: 0.04148522
-          y: 0.6927257
-          z: 0.072338074
-          w: 0.7163639
+          x: 0.041469146
+          y: 0.6926809
+          z: 0.072177485
+          w: 0.71642447
     - Position:
-        x: 128.12708
-        y: 7.0999694
-        z: -181.75862
+        x: 94
+        y: 4.3
+        z: -178
       TangentIn:
         x: -0
         y: -0
-        z: -8.804919
+        z: -5.3601794
       TangentOut:
         x: 0
         y: 0
-        z: 8.804919
+        z: 5.3601794
       Rotation:
         value:
-          x: -0.14821282
-          y: 0.72965205
-          z: -0.07938166
-          w: 0.66282684
+          x: -0.14807373
+          y: 0.7295936
+          z: -0.079560965
+          w: 0.66290075
     m_MetaData:
     - Mode: 0
       Tension: 0.5
@@ -1116,7 +1116,7 @@ Transform:
   m_GameObject: {fileID: 1479320630}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 96, y: 10.100006, z: 31.958618}
+  m_LocalPosition: {x: 144.8, y: -5.9, z: 4.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1720,6 +1720,7 @@ GameObject:
   - component: {fileID: 827260817}
   - component: {fileID: 919132148907360990}
   - component: {fileID: 919132148907360992}
+  - component: {fileID: 919132148907360993}
   m_Layer: 0
   m_Name: FuwaSuisei
   m_TagString: Untagged
@@ -1788,6 +1789,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &919132148907360993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148907360989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c3a8c69177147e449bfa3e935d082a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &931395608346684773
 Transform:
   m_ObjectHideFlags: 0
