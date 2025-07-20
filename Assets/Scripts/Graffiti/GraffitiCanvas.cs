@@ -16,6 +16,7 @@ public class GraffitiCanvas : MonoBehaviour
     private bool updateMipMap = false;
     private bool sprayedLastFrame = false;
     private Vector2 lastSprayPos;
+    private float performanceTimer = 0;
 
     void Start()
     {
@@ -28,6 +29,12 @@ public class GraffitiCanvas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (performanceTimer > 0)
+        {
+            performanceTimer -= Time.deltaTime;
+            return;
+        }
+
         if (Mouse.current.leftButton.isPressed)
         {
             var mouseScreenPosition = Mouse.current.position.ReadValue();
@@ -64,6 +71,7 @@ public class GraffitiCanvas : MonoBehaviour
 
                 lastSprayPos = new Vector2(x, y);
                 sprayedLastFrame = true;
+                performanceTimer += 0.05f;
                 return;
             }
         }
