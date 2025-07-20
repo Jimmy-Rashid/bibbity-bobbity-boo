@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     void FixedUpdate()
@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
         directionInput = move.ReadValue<Vector2>();
         moveDirection = (directionInput.x * cameraRight) + (directionInput.y * cameraForward);
-        
+
         rb.linearVelocity = new Vector3(moveDirection.x * movementSpeed, rb.linearVelocity.y, moveDirection.z * movementSpeed);
 
         transform.LookAt(new Vector3(moveDirection.x, 0, moveDirection.z) + transform.position);
@@ -66,6 +66,14 @@ public class PlayerMovement : MonoBehaviour
         if (playerControls.Player.Jump.triggered && Mathf.Abs(rb.linearVelocity.y) < 1f)
         {
             rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "GraffitiSpot")
+        {
+            other.GetComponent<GraffitiEvent>().StartEvent();
         }
     }
 }
