@@ -14,7 +14,8 @@ public class NPCBehaviour : MonoBehaviour
     void Update()
     {
         playerPosition = player.transform.position;
+        playerPosition.y = transform.position.y;
 
-        transform.LookAt(new Vector3(playerPosition.x, 0, playerPosition.z));
+        transform.LookAt(playerPosition);
     }
 }
