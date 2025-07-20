@@ -119,6 +119,40 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &9476937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9476938}
+  m_Layer: 0
+  m_Name: GraffitiSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9476938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9476937}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9999037, z: -0, w: 0.013882946}
+  m_LocalPosition: {x: 16.90955, y: -5.00003, z: -191.16359}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 146606720}
+  - {fileID: 1549873963}
+  - {fileID: 1287492739}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 178.409, z: 0}
 --- !u!1 &146606716
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,7 +167,7 @@ GameObject:
   - component: {fileID: 146606717}
   - component: {fileID: 146606721}
   m_Layer: 0
-  m_Name: Graffiti Spot 1
+  m_Name: Graffiti Hitbox
   m_TagString: GraffitiSpot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,13 +256,11 @@ Transform:
   m_GameObject: {fileID: 146606716}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.9998262, z: -0, w: 0.018645398}
-  m_LocalPosition: {x: 24.7764, y: -4.7818, z: -273.502}
-  m_LocalScale: {x: 6.225504, y: 0.3625, z: 4.605066}
+  m_LocalPosition: {x: -5.0371895, y: 0.21823025, z: 1.9477234}
+  m_LocalScale: {x: 6.225504, y: 0.3625, z: 4.6050663}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1549873963}
-  - {fileID: 1287492739}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 9476938}
   m_LocalEulerAnglesHint: {x: 0, y: -177.863, z: 0}
 --- !u!114 &146606721
 MonoBehaviour:
@@ -999,7 +1031,6 @@ GameObject:
   - component: {fileID: 1287492741}
   - component: {fileID: 1287492740}
   - component: {fileID: 1287492743}
-  - component: {fileID: 1287492744}
   m_Layer: 0
   m_Name: Graffiti Canvas
   m_TagString: Untagged
@@ -1015,12 +1046,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287492738}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.70688075, y: -0.017877974, z: -0.01787798, w: 0.70688075}
-  m_LocalPosition: {x: -0.06, y: 21.9, z: 2.31}
-  m_LocalScale: {x: 0.31759086, y: 1, z: 4.0687237}
+  m_LocalRotation: {x: 0.0046947985, y: -0.7070912, z: -0.7070912, w: -0.004694793}
+  m_LocalPosition: {x: -5.0605373, y: 8.1569805, z: -8.696503}
+  m_LocalScale: {x: 1.9758487, y: 4.609208, z: 1.4749124}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 146606720}
+  m_Father: {fileID: 9476938}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -2.898}
 --- !u!64 &1287492740
 MeshCollider:
@@ -1041,7 +1072,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1287492741
@@ -1112,35 +1143,8 @@ MonoBehaviour:
   texture: {fileID: 0}
   textureSize: {x: 2048, y: 2048}
   mainCamera: {fileID: 330585545}
-  spraySize: 2
+  spraySize: 20
   sprayColor: {r: 0, g: 0, b: 0, a: 1}
---- !u!54 &1287492744
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287492738}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 51
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1549873957
 GameObject:
   m_ObjectHideFlags: 0
@@ -1278,12 +1282,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549873957}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0074167983, y: 0.013210686, z: 0.00009799224, w: -0.99988526}
-  m_LocalPosition: {x: -0.0048367553, y: 21.368006, z: -0.5116839}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.000040313178, y: -0.99995774, z: -0.007417336, w: 0.0054347464}
+  m_LocalPosition: {x: -4.919245, y: 7.964133, z: 4.3013}
+  m_LocalScale: {x: 6.224373, y: 0.36343393, z: 4.6052637}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 146606720}
+  m_Father: {fileID: 9476938}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1549873964
 MonoBehaviour:
@@ -5277,5 +5281,5 @@ SceneRoots:
   - {fileID: 576287078}
   - {fileID: 543450652914980967}
   - {fileID: 8102323868392316602}
-  - {fileID: 146606720}
   - {fileID: 621085894}
+  - {fileID: 9476938}
