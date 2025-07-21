@@ -1801,6 +1801,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c3a8c69177147e449bfa3e935d082a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGrounded: 0
+  isGroundedCycle: 0
 --- !u!4 &931395608346684773
 Transform:
   m_ObjectHideFlags: 0

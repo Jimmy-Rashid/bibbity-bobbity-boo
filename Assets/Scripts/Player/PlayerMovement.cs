@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
             rb.linearVelocity = new Vector3(moveDirection.x * movementSpeed, rb.linearVelocity.y, moveDirection.z * movementSpeed);
 
-            if (playerControls.Player.Jump.triggered && Mathf.Abs(rb.linearVelocity.y) < 1f)
+            if (playerControls.Player.Jump.triggered && GetComponent<FeetCollision>().isGrounded) // if jump is pressed and player is grounded
             {
                 rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
             }
