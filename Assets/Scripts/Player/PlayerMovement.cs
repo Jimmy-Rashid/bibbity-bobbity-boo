@@ -44,7 +44,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump(InputValue val)
     {
-        jumpInput = val.Get<float>();
+        if (val.isPressed)
+        {
+            if (GetComponent<PlayerGrind>().onRail)
+            {
+                Debug.Log("Trying to jump on rail :3c");
+                GetComponent<PlayerGrind>().FeetCollisionOnRail(); // if on rail, call FeetCollisionOnRail to reset rail
+                rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            }
+            else if (GetComponent<FeetCollision>().isGrounded) // if jump is pressed and player is grounded
+            {
+                rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            }
+        }
     }
 
     void Start()
@@ -75,11 +87,6 @@ public class PlayerMovement : MonoBehaviour
             transform.LookAt(new Vector3(moveDirection.x, 0, moveDirection.z) + transform.position); // look in direction
 
             rb.linearVelocity = new Vector3(moveDirection.x * movementSpeed, rb.linearVelocity.y, moveDirection.z * movementSpeed);
-
-            if (playerControls.Player.Jump.triggered && GetComponent<FeetCollision>().isGrounded) // if jump is pressed and player is grounded
-            {
-                rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-            }
         }
     }
 }

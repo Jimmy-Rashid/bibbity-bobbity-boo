@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class FeetCollision : MonoBehaviour
 {
-    float lengthOfRay = 1f;
-    float distanceBetweenRays;
-    float margin = 0;
-    int numRays = 2;
+    float lengthOfRay = 0.1f;
     Ray ray;
     Vector3 startPoint;
     Vector3 rayOrigin;
@@ -16,57 +13,32 @@ public class FeetCollision : MonoBehaviour
     public bool isGroundedCycle;
     void Start()
     {
-        distanceBetweenRays = (GetComponent<Collider>().bounds.size.x - 2 * margin) / (numRays - 1);
-        rayOffset = ((numRays - 1) * distanceBetweenRays) / 2;
-        //rayOffset = 0;
         isGrounded = true;
-        isGroundedCycle = false;
     }
 
     void FixedUpdate()
     {
-        startPoint = new Vector3(transform.position.x - rayOffset, transform.position.y, transform.position.z - rayOffset);
-        rayOrigin = startPoint;
+        rayOrigin = transform.position;
 
-        isGroundedCycle = false;
+        ray = new Ray(rayOrigin, Vector3.down);
+        Debug.DrawRay(rayOrigin, Vector3.down, Color.yellow);
 
-        for (int i = 0; i < numRays; i++)
+        if (Physics.Raycast(ray, out hitInfo, lengthOfRay)) // Check if player touches other Rigidbody
         {
-            for (int j = 0; j < numRays; j++)
+            if (!hitInfo.transform.gameObject.CompareTag("Rail")) // Check if touched Rigidbody is ground (not rail)
             {
-                ray = new Ray(rayOrigin, Vector3.down);
-                Debug.DrawRay(rayOrigin, Vector3.down, Color.yellow);
-
-                if (Physics.Raycast(ray, out hitInfo, lengthOfRay))
+                // Debug.Log("Hit ground:" + Time.time);
+                isGrounded = true;
+                if (GetComponent<PlayerGrind>().onRail) // Check if player is on rail
                 {
-                    if (!hitInfo.transform.gameObject.CompareTag("Rail"))
-                    {
-                        Debug.Log("Hit ground:" + Time.time);
-                        isGroundedCycle = true;
-                        if (GetComponent<PlayerGrind>().onRail)
-                        {
-                            GetComponent<PlayerGrind>().FeetCollisionOnRail();
-                        }
-                    }
+                    GetComponent<PlayerGrind>().FeetCollisionOnRail();
                 }
-                else
-                {
-                    Debug.Log("No hit:" + Time.time);
-                }
-                rayOrigin += new Vector3(distanceBetweenRays, 0, 0);
             }
-
-            startPoint += new Vector3(0, 0, distanceBetweenRays);
-            rayOrigin = startPoint;
-        }
-        if (isGroundedCycle)
-        {
-            isGrounded = true;
         }
         else
         {
             isGrounded = false;
+            // Debug.Log("No hit:" + Time.time);
         }
-        isGroundedCycle = false;
     } 
 }

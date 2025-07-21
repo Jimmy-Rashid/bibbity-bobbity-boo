@@ -130,7 +130,7 @@ public class PlayerGrind : MonoBehaviour
         if (onRail)
         {
             // ThrowOffRail();
-            gameObject.transform.RotateAround(transform.position, transform.right, 180f);
+            transform.RotateAround(transform.position, transform.up, 180f);
             CalculateAndSetRailPosition();
         }
         else if (collision.gameObject.CompareTag("Rail"))
