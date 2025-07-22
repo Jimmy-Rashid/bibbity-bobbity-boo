@@ -44,6 +44,8 @@ public class GraffitiCanvas : MonoBehaviour
 
         r.material.mainTexture = texture;
         sprayCanInstance = Instantiate(sprayCan);
+        sprayCanInstance.transform.rotation = transform.rotation;
+        sprayCanInstance.transform.Rotate(90f, 0f, 0f, Space.Self);
         initialSprayCanRotation = sprayCanInstance.transform.rotation;
         particleSprayCan = sprayCanInstance.GetComponentInChildren<ParticleSystem>();
         sprayCanInstance.SetActive(false);
@@ -103,7 +105,8 @@ public class GraffitiCanvas : MonoBehaviour
         if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == this.gameObject)
         {
             sprayCanInstance.SetActive(true);
-            sprayCanInstance.transform.position = hit.point + new Vector3(0, -1.7f, -1.4f);
+            Vector3 offset = mainCamera.transform.up * -1.7f + mainCamera.transform.forward * -2f;
+            sprayCanInstance.transform.position = hit.point + offset;
         }
         else
         {

@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 
 public class GraffitiEvent : MonoBehaviour
 {
-  public GameObject mainCamera;
   public GameObject graffitiCam;
   public GameObject mainPlayer;
   private float originalSpeed;
