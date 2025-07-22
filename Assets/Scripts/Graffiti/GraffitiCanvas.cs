@@ -1,10 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Mono.Cecil.Cil;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class GraffitiCanvas : MonoBehaviour
@@ -36,7 +32,7 @@ public class GraffitiCanvas : MonoBehaviour
     {
         var r = GetComponent<Renderer>();
         texture = new Texture2D((int)textureSize.x, (int)textureSize.y);
-        texture.alphaIsTransparency = true;
+        //texture.alphaIsTransparency = true;
 
         Color[] initialPixels = Enumerable.Repeat(new Color(0, 0, 0, 0), (int)(textureSize.x * textureSize.y)).ToArray();
         texture.SetPixels(initialPixels);
