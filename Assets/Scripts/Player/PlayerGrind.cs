@@ -31,6 +31,8 @@ public class PlayerGrind : MonoBehaviour
     PlayerScore playerScore;
     Rigidbody playerRigidbody;
 
+    float3 nearestPoint;
+
     private void Start()
     {
         playerScore = GetComponent<PlayerScore>();
@@ -66,7 +68,6 @@ public class PlayerGrind : MonoBehaviour
 
     void MovePlayerAlongRail()
     {
-
         if (currentRailScript != null && onRail) //This is just some additional error checking.
         {
             //Calculate a 0 to 1 normalised time value which is the progress along the rail.
@@ -135,16 +136,31 @@ public class PlayerGrind : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Rail"))
         {
-            /*When the player hits the rail, onRail is set to true, the current rail script is set to the
-            *rail script of the rail the player hits. Then we calculate the player's position on that rail.
-            */
-            onRail = true;
-            elapsedScoreTime = Time.deltaTime;
-            prevScoreTime = Time.deltaTime;
-            currentRailScript = collision.gameObject.GetComponent<RailScript>();
-            CalculateAndSetRailPosition();
+            Spline rail = collision.gameObject.GetComponentInParent<SplineContainer>().Spline;
+            float3 playerPoint = collision.gameObject.GetComponent<RailScript>().WorldToLocalConversion(transform.position);
+            SplineUtility.GetNearestPoint(rail, playerPoint, out nearestPoint, out float normalizedPoint, 10, 10);
+            nearestPoint = collision.gameObject.GetComponent<RailScript>().LocalToWorldConversion(nearestPoint);
+
+            if (transform.position.y > nearestPoint.y)
+            {
+                /*When the player hits the rail, onRail is set to true, the current rail script is set to the
+                *rail script of the rail the player hits. Then we calculate the player's position on that rail.
+                */
+                onRail = true;
+                elapsedScoreTime = Time.deltaTime;
+                prevScoreTime = Time.deltaTime;
+                currentRailScript = collision.gameObject.GetComponent<RailScript>();
+                CalculateAndSetRailPosition();
+            }
         }
     }
+
+    // void OnDrawGizmos()
+    // {
+    //     Debug.Log("Drawing gizmo at " + nearestPoint);
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawSphere(nearestPoint, 1f);
+    // }
 
     void CalculateAndSetRailPosition()
     {
@@ -171,7 +187,7 @@ public class PlayerGrind : MonoBehaviour
         transform.position = splinePoint + (transform.up * heightOffset);
     }
 
-    void ThrowOffRail()
+    void ThrowOffRail() //ALWAYS CALL WHEN PLAYER COMES OFF RAIL; NEEDED FOR SCORE RESET TOO
     {
         //Set onRail to false, clear the rail script, and push the player off the rail.
         //It's a little sudden, there might be a better way of doing using coroutines and looping, but this will work.
@@ -182,6 +198,8 @@ public class PlayerGrind : MonoBehaviour
         //Reset time-count for scores
         elapsedScoreTime = 0;
         prevScoreTime = 0;
+
+        playerScore.ResetScore();
     }
 
     public void FeetCollisionOnRail()

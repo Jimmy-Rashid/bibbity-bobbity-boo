@@ -30,4 +30,16 @@ public class PlayerScore : MonoBehaviour
         score += change;
         SetTextScore();
     }
+
+    public void PerformTrick(float trickScore, string trickName)
+    {
+        UpdateScore(trickScore);
+        combo++;
+        Debug.Log($"Performed trick: {trickName}, Score: {trickScore}, Combo: {combo}");
+    }
+
+    public void ResetScore()
+    {
+        UpdateScore(-score);
+    } 
 }

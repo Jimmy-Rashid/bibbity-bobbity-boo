@@ -51,6 +51,7 @@ public class RailScript : MonoBehaviour
         worldPosOnSpline = LocalToWorldConversion(nearestPoint);
         return time;
     }
+
     /// <summary>
     /// Calculates the direction the player is going on the rail based on their direction during the initial collision.
     /// </summary>
