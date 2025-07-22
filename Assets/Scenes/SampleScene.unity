@@ -277,6 +277,7 @@ MonoBehaviour:
   mainCamera: {fileID: 576287072}
   graffitiCam: {fileID: 1549873957}
   mainPlayer: {fileID: 919132148907360989}
+  grafitiCanvas: {fileID: 1287492738}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,7 +1099,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1145,6 +1146,10 @@ MonoBehaviour:
   mainCamera: {fileID: 330585545}
   spraySize: 20
   sprayColor: {r: 0, g: 0, b: 0, a: 1}
+  sprayCan: {fileID: 6829905276253023546, guid: a097212b97d9b834086b0c273e0bd890, type: 3}
+  canDraw: 0
+  swayAmount: 50
+  swaySpeed: 5
 --- !u!1 &1549873957
 GameObject:
   m_ObjectHideFlags: 0

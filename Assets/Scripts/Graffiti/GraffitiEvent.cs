@@ -9,6 +9,7 @@ public class GraffitiEvent : MonoBehaviour
   public GameObject graffitiCam;
   public GameObject mainPlayer;
   private float originalSpeed;
+  public GameObject grafitiCanvas;
 
   public void StartEvent()
   {
@@ -19,6 +20,7 @@ public class GraffitiEvent : MonoBehaviour
     Debug.Log("GraffitiEvent: Changing camera position to grafiti");
     CinemachineCamera freeCamera = graffitiCam.GetComponent<CinemachineCamera>();
     freeCamera.Priority = 2;
+    grafitiCanvas.GetComponent<GraffitiCanvas>().canDraw = true;
   }
 
   public void EndEvent()
@@ -29,6 +31,7 @@ public class GraffitiEvent : MonoBehaviour
     Debug.Log("GraffitiEvent: Changing camera position to original");
     CinemachineCamera freeCamera = graffitiCam.GetComponent<CinemachineCamera>();
     freeCamera.Priority = 0;
+    grafitiCanvas.GetComponent<GraffitiCanvas>().canDraw = false;
     Destroy(gameObject);
   }
 
