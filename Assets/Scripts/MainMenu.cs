@@ -1,15 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void Play()
+    public GameObject Menu;
+    public GameObject StartButton;
+    public GameObject EndButton;
+
+    void Start()
     {
-        SceneManager.LoadScene("SampleScene2");
+
     }
 
-    public void Quit()
+    void Update()
     {
-        Application.Quit();
+
     }
 }
