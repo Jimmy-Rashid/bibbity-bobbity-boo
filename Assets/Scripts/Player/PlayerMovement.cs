@@ -313,7 +313,7 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="moveInput">The player movement input.</param>
     /// <param name="rayHit">The rayHit towards the platform.</param>
     private void CharacterMove(Vector3 moveInput, RaycastHit rayHit)
-    {   
+    {
         if (!frozen)
         {
             Vector3 cameraForward = freeCamera.transform.forward;
@@ -322,7 +322,7 @@ public class PlayerMovement : MonoBehaviour
             cameraRight.y = 0;
             cameraForward.Normalize();
             cameraRight.Normalize();
-            moveDirection = (_moveInput.x * cameraRight) + (_moveInput.z * cameraForward); 
+            moveDirection = (_moveInput.x * cameraRight) + (_moveInput.z * cameraForward);
 
             Vector3 m_UnitGoal = moveDirection.normalized;
             Vector3 unitVel = _m_GoalVel.normalized;
@@ -337,6 +337,10 @@ public class PlayerMovement : MonoBehaviour
             _rb.AddForce(Vector3.Scale(neededAccel * _rb.mass, _moveForceScale));
 
             transform.LookAt(new Vector3(moveDirection.x, 0, moveDirection.z) + transform.position);
+        }
+        else
+        {
+            _rb.linearVelocity = new Vector3(0, 0, 0);
         }
     }
 
