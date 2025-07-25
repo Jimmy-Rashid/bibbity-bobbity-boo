@@ -4,7 +4,9 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Rail
+  - GraffitiSpot
+  - GraffitiCanvas
+  - PickupObjects
   layers:
   - Default
   - TransparentFX
