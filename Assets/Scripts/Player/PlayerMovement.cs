@@ -314,8 +314,8 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="rayHit">The rayHit towards the platform.</param>
     private void CharacterMove(Vector3 moveInput, RaycastHit rayHit)
     {
-        if (!frozen)
-        {
+        // if (!frozen)
+        // {
             Vector3 cameraForward = freeCamera.transform.forward;
             Vector3 cameraRight = freeCamera.transform.right;
             cameraForward.y = 0;
@@ -337,11 +337,11 @@ public class PlayerMovement : MonoBehaviour
             _rb.AddForce(Vector3.Scale(neededAccel * _rb.mass, _moveForceScale));
 
             transform.LookAt(new Vector3(moveDirection.x, 0, moveDirection.z) + transform.position);
-        }
-        else
-        {
-            _rb.linearVelocity = new Vector3(0, 0, 0);
-        }
+        // }
+        // else
+        // {
+        //     _rb.linearVelocity = new Vector3(0, 0, 0);
+        // }
     }
 
     /// <summary>
