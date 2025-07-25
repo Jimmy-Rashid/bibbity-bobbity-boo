@@ -33,11 +33,17 @@ public class PlayerGrind : MonoBehaviour
 
     float3 nearestPoint;
 
+    //
+    private Quaternion currentRailRotation;
+    private Vector3 lastTangent;
+    private bool initializedRotation = false;
+    //
+
     private void Start()
     {
         playerScore = GetComponent<PlayerScore>();
         playerRigidbody = GetComponent<Rigidbody>();
-        heightOffset = 0; // gameObject.GetComponent<Collider>().bounds.size.y / 2;
+        heightOffset = gameObject.GetComponent<PlayerHover>().hoverHeight; // gameObject.GetComponent<Collider>().bounds.size.y / 2;
 
         elapsedScoreTime = 0;
         prevScoreTime = 0;
@@ -110,10 +116,32 @@ public class PlayerGrind : MonoBehaviour
             //Setting the player's position and adding a height offset so that they're sitting on top of the rail
             //instead of being in the middle of it.
             transform.position = worldPos + (transform.up * heightOffset);
-            //Lerping the player's current rotation to the direction of where they are to where they're going.
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(nextPos - worldPos), lerpSpeed * Time.deltaTime);
-            //Lerping the player's up direction to match that of the rail, in relation to the player's current rotation.
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up, up) * transform.rotation, lerpSpeed * Time.deltaTime);
+            // //Lerping the player's current rotation to the direction of where they are to where they're going.
+            // transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(nextPos - worldPos), lerpSpeed * Time.deltaTime);
+            // //Lerping the player's up direction to match that of the rail, in relation to the player's current rotation.
+            // transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up, up) * transform.rotation, lerpSpeed * Time.deltaTime);
+
+            Vector3 tangentDir = (nextPos - worldPos).normalized;
+
+            if (!initializedRotation)
+            {
+                // First frame on the rail: build initial rotation
+                currentRailRotation = Quaternion.LookRotation(tangentDir, transform.up);
+                initializedRotation = true;
+            }
+            else
+            {
+                // Compute rotation from previous tangent to current tangent
+                Quaternion rotationDelta = Quaternion.FromToRotation(lastTangent, tangentDir);
+                currentRailRotation = rotationDelta * currentRailRotation;
+            }
+
+            // Apply rotation smoothly
+            transform.rotation = Quaternion.Slerp(transform.rotation, currentRailRotation, lerpSpeed * Time.deltaTime);
+
+            // Update tangent
+            lastTangent = tangentDir;
+
 
             //Finally incrementing or decrementing elapsed time for the next update based on direction.
             prevScoreTime = elapsedScoreTime;
@@ -162,8 +190,9 @@ public class PlayerGrind : MonoBehaviour
     //     Gizmos.DrawSphere(nearestPoint, 1f);
     // }
 
-    void CalculateAndSetRailPosition()
+    public void CalculateAndSetRailPosition()
     {
+        initializedRotation = false;
         //Figure out the amount of time it would take for the player to cover the rail.
         timeForFullSpline = currentRailScript.totalSplineLength / grindSpeed;
 
@@ -200,10 +229,17 @@ public class PlayerGrind : MonoBehaviour
         prevScoreTime = 0;
 
         playerScore.ResetScore();
+        initializedRotation = false;
     }
 
     public void FeetCollisionOnRail()
     {
         ThrowOffRail();
+    }
+
+    public void RideRail(GameObject gameObject)
+    {
+        currentRailScript = gameObject.GetComponent<RailScript>();
+        MovePlayerAlongRail();
     }
 }

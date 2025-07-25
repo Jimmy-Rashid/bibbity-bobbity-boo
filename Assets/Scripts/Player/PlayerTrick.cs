@@ -6,6 +6,7 @@ public class PlayerTrick : MonoBehaviour
     private PlayerInputActions playerControls;
     private PlayerGrind playerGrind;
     private PlayerScore playerScore;
+    private bool isTrickActive;
 
     private void Awake()
     {
@@ -15,18 +16,23 @@ public class PlayerTrick : MonoBehaviour
         playerGrind = GetComponent<PlayerGrind>();
 
         playerScore = GetComponent<PlayerScore>();
+
+        isTrickActive = false;
     }
 
     private void OnLeftClickTrick(InputValue val)
     {
-        if (playerGrind.onRail && val.isPressed) {
-            doLeftClickTrick();
+        if (playerGrind.onRail && val.isPressed && !isTrickActive) {
+            isTrickActive = true;
+            doLeftClickTrick(); 
+            
         }
     }
 
     private void OnRightClickTrick(InputValue val)
     {
-        if (playerGrind.onRail && val.isPressed) {
+        if (playerGrind.onRail && val.isPressed && !isTrickActive) {
+            isTrickActive = true;
             doRightClickTrick();
         }
     }
@@ -36,6 +42,7 @@ public class PlayerTrick : MonoBehaviour
         Debug.Log("Left click trick performed on rail!");
         transform.Rotate(0, 180, 0, Space.Self);
         playerScore.PerformTrick(300, "Left Click Trick");
+        isTrickActive = false;
     }
 
     void doRightClickTrick()
@@ -43,5 +50,6 @@ public class PlayerTrick : MonoBehaviour
         Debug.Log("Right click trick performed on rail!");
         transform.Rotate(0, -180, 0, Space.Self);
         playerScore.PerformTrick(300, "Right Click Trick");
+        isTrickActive = false;
     }
 }
